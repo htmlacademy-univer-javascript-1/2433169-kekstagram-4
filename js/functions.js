@@ -18,3 +18,23 @@ const returnNumber = (str) => {
   return numbersIncludedArray.join('');
 };
 returnNumber(2023);
+
+
+function isMeetingWithinWorkingHours(startWorkingDay, endWorkingDay, startMeeting, durationMeeting) {
+  const startMinutes = convertToMinutes(startWorkingDay);
+  const endMinutes = convertToMinutes(endWorkingDay);
+  const meetingStartMinutes = convertToMinutes(startMeeting);
+  const meetingEndMinutes = meetingStartMinutes + durationMeeting;
+
+  if (meetingStartMinutes >= startMinutes && meetingEndMinutes <= endMinutes) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function convertToMinutes(time) {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+}
+isMeetingWithinWorkingHours('08:00', '17:30', '14:00', 90);
