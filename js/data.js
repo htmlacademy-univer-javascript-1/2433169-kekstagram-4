@@ -1,4 +1,4 @@
-import {getRandomInteger} from './util.js';
+import {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl} from './utils.js';
 
 const NAMES = [
   'Иван',
@@ -30,30 +30,46 @@ const PHOTODESCRIPTIONS = [
   'Океанские волны'
 ];
 
-const LIKES = {
-  minimum: 15,
-  maximum: 200
+const PHOTOS_COUNT = 25;
+const imageIdGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
+const imageUrlGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
+
+const COMMENTS = {
+  MIN : 0,
+  MAX : 30
 };
 
-const COUNTOBJECT = 25;
-const COMMENTSSMAX = 30;
+const LIKES = {
+  MIN : 15,
+  MAX : 200
+};
 
-const commentsObject = () => ({
-  id: Math.random(),
-  avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
+const createRandomComment = (generatorComments, generatorUrl) => ({
+  id: generatorComments(),
+  avatar: createImageUrl(generatorUrl(), 'photos/avatar-', '.svg'),
+  name: NAMES[getRandomInteger(0, NAMES.length - 1)],
   message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
-  authorName: NAMES[getRandomInteger(0, NAMES.length - 1)],
 });
 
-const addmainObject = () => ({
-  id: getRandomInteger(1, COUNTOBJECT),
-  url: `photos/${getRandomInteger(1, COUNTOBJECT)}.jpg`,
+const createRandomComments = (count) => {
+  const result = [];
+  const commentIdGenerator = createRandomIdFromRangeGenerator(1, count);
+
+  for (let i = 0; i < count; i++) {
+    const urlIdGenerator = createRandomIdFromRangeGenerator(1, 6);
+
+    result.push(createRandomComment(commentIdGenerator, urlIdGenerator));
+  }
+
+  return result;
+};
+
+const createImage = () => ({
+  id: imageIdGenerator(),
+  url: createImageUrl(imageUrlGenerator(), 'photos/', '.jpg'),
   description: PHOTODESCRIPTIONS[getRandomInteger(0, PHOTODESCRIPTIONS.length - 1)],
-  likes: getRandomInteger(LIKES.minimum, LIKES.maximum),
-  comments: Array.from(getRandomInteger(0, COMMENTSSMAX), commentsObject()),
+  likes: getRandomInteger(LIKES.MIN, LIKES.MAX),
+  comments: createRandomComments(getRandomInteger(COMMENTS.MIN, COMMENTS.MAX)),
 });
 
-
-const getmainObject = () => Array.from({ length: COUNTOBJECT }, addmainObject);
-
-export {getmainObject};
+export {PHOTOS_COUNT, createImage};

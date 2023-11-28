@@ -5,4 +5,21 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-export {getRandomInteger};
+const createRandomIdFromRangeGenerator = (min, max) => {
+  const formerValues = [];
+
+  return function () {
+    let actualValue = getRandomInteger(min, max);
+
+    while (formerValues.includes(actualValue)) {
+      actualValue = getRandomInteger(min, max);
+    }
+
+    formerValues.push(actualValue);
+
+    return actualValue;
+  };
+};
+
+const createImageUrl = (id, derictory, format) => derictory + id + format;
+export {getRandomInteger,createImageUrl, createRandomIdFromRangeGenerator};
