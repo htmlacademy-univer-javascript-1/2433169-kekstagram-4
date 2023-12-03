@@ -9,7 +9,7 @@ const createPicture = (picture) => {
   currentPicture.querySelector('img').alt = picture.description;
   currentPicture.querySelector('.picture__comments').textContent = picture.comments.length;
   currentPicture.querySelector('.picture__likes').textContent = picture.likes;
-
+  currentPicture.dataset.id = picture.id;
   pictureFragments.append(currentPicture);
 
 };

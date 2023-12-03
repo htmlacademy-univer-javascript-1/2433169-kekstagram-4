@@ -46,7 +46,7 @@ const LIKES = {
 
 const createRandomComment = (generatorComments, generatorUrl) => ({
   id: generatorComments(),
-  avatar: createImageUrl(generatorUrl(), 'photos/avatar-', '.svg'),
+  avatar: createImageUrl(generatorUrl(), 'img/avatar-', '.svg'),
   name: NAMES[getRandomInteger(0, NAMES.length - 1)],
   message: MESSAGES[getRandomInteger(0, MESSAGES.length - 1)],
 });
