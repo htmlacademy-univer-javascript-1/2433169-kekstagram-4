@@ -20,7 +20,7 @@ const MESSAGES = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
 
-const PHOTODESCRIPTIONS = [
+const DESCRIPTIONS = [
   'Закат на пляже',
   'Городская ночь',
   'Цветущие вишни',
@@ -67,7 +67,7 @@ const createRandomComments = (count) => {
 const createImage = () => ({
   id: imageIdGenerator(),
   url: createImageUrl(imageUrlGenerator(), 'photos/', '.jpg'),
-  description: PHOTODESCRIPTIONS[getRandomInteger(0, PHOTODESCRIPTIONS.length - 1)],
+  description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
   likes: getRandomInteger(LIKES.MIN, LIKES.MAX),
   comments: createRandomComments(getRandomInteger(COMMENTS.MIN, COMMENTS.MAX)),
 });
