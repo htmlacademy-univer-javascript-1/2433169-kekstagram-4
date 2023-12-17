@@ -2,7 +2,10 @@ const commentTemplate = document.querySelector('#comments').content.querySelecto
 
 const body = document.body;
 const picturesContainer = document.querySelector('.pictures');
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of ce6d1aa (9.13. Правда или действие)
 const bigPictureForm = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureForm.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureForm.querySelector('.big-picture__social .likes-count');
@@ -17,7 +20,6 @@ const createComment = (comment) =>{
   currentComment.querySelector('.social__picture').src = comment.avatar;
   currentComment.querySelector('.social__picture').alt = comment.name;
   currentComment.querySelector('.social__text').textContent = comment.message;
-
   return(currentComment);
 
 };
@@ -43,6 +45,7 @@ const renderBigPicture = (data) =>{
   bigPictureDescription.textContent = data.description;
   bigPictureCommentsCount.textContent = data.comments.length;
 };
+
 const closeBigPicture = () => {
   bigPictureForm.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -55,6 +58,11 @@ function onDocumentKeyDown (evt) {
     closeBigPicture();
   }
 }
+const hideStatsElements = (picture) => {
+  picture.querySelector('.picture__comments').classList.add('hidden');
+  picture.querySelector('.picture__likes').classList.add('hidden');
+};
+
 
 const hideStatsElements = (picture) => {
   picture.querySelector('.picture__comments').classList.add('hidden');
@@ -66,11 +74,19 @@ const displayImageAndComments = (data) => {
   createComments(data.comments);
 };
 
-const showBigPicture = (picture) => {
+const showBigPicture = (data, picture) => {
   bigPictureForm.classList.remove('hidden');
   body.classList.add('modal-open');
 
+<<<<<<< HEAD
   displayImageAndComments(picture);
+=======
+  currentComments = data.comments.slice();
+  visiableCommentsCount = COMMENTS_STEP;
+
+  hideStatsElements(picture);
+  displayImageAndComments(data);
+>>>>>>> parent of ce6d1aa (9.13. Правда или действие)
 
   document.addEventListener('keydown', onDocumentKeyDown);
   closeButton.addEventListener('click', closeBigPicture);
@@ -78,6 +94,7 @@ const showBigPicture = (picture) => {
 
 const initPictures = (pictures) => {
   picturesContainer.addEventListener('click', (evt) =>{
+<<<<<<< HEAD
 
     evt.preventDefault();
 
@@ -93,4 +110,15 @@ const initPictures = (pictures) => {
   });
 };
 
+=======
+    evt.preventDefault();
+    const currentPicture = evt.target.closest('[data-id]');
+    if(!currentPicture){
+      return;
+    }
+    const currentPictureData = pictures.find((picture) => picture.id === +currentPicture.dataset.id);
+    showBigPicture(currentPictureData, currentPicture);
+  });
+};
+>>>>>>> parent of ce6d1aa (9.13. Правда или действие)
 export {initPictures};
