@@ -1,35 +1,34 @@
 import {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl} from './utils.js';
 
+const DESCRIPTIONS = [
+  'Трамвай',
+  'Кириешки',
+  'Без описания',
+  'Мем',
+  'Дэб ногами',
+  'Хайп',
+  'Антихайп',
+  'Плавленный сыр',
+  'Мангал клаб',
+];
+
 const NAMES = [
-  'Иван',
-  'Хуан Себастьян',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон',
+  'Миша',
+  'Артем',
+  'Никита',
+  'Даша',
+  'Акакий',
+  'Алдар Баирович',
 ];
 
 const MESSAGES = [
   'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
+  'В целом всё неплохо. Но не всё.',
+  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
+  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
+  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
+  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!',
 ];
-
-const DESCRIPTIONS = [
-  'Закат на пляже',
-  'Городская ночь',
-  'Цветущие вишни',
-  'Заснеженные горы',
-  'Детская радость',
-  'Пикник в парке',
-  'Океанские волны'
-];
-
 const PHOTOS_COUNT = 25;
 const imageIdGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
 const imageUrlGenerator = createRandomIdFromRangeGenerator(1, PHOTOS_COUNT);
@@ -40,8 +39,8 @@ const COMMENTS = {
 };
 
 const LIKES = {
-  MIN : 15,
-  MAX : 200
+  MAX: 200,
+  MIN: 15
 };
 
 const createRandomComment = (generatorComments, generatorUrl) => ({
@@ -55,7 +54,7 @@ const createRandomComments = (count) => {
   const result = [];
   const commentIdGenerator = createRandomIdFromRangeGenerator(1, count);
 
-  for (let i = 0; i < count; i++) {
+  for(let i = 0; i < count; i++) {
     const urlIdGenerator = createRandomIdFromRangeGenerator(1, 6);
 
     result.push(createRandomComment(commentIdGenerator, urlIdGenerator));
@@ -66,9 +65,13 @@ const createRandomComments = (count) => {
 
 const createImage = () => ({
   id: imageIdGenerator(),
+
   url: createImageUrl(imageUrlGenerator(), 'photos/', '.jpg'),
+
   description: DESCRIPTIONS[getRandomInteger(0, DESCRIPTIONS.length - 1)],
+
   likes: getRandomInteger(LIKES.MIN, LIKES.MAX),
+
   comments: createRandomComments(getRandomInteger(COMMENTS.MIN, COMMENTS.MAX)),
 });
 

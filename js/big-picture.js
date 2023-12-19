@@ -10,6 +10,7 @@ const bigPictureLikes = bigPictureForm.querySelector('.big-picture__social .like
 const bigPictureDescription = bigPictureForm.querySelector('.big-picture__social .social__caption');
 const bigPictureCommentsCount = bigPictureForm.querySelector('.social__comment-count');
 
+
 const socials = document.querySelector('.social__comments');
 
 const closeButton = document.querySelector('#picture-cancel');
@@ -25,9 +26,7 @@ const renderComment = (comment) =>{
   currentComment.querySelector('.social__picture').src = comment.avatar;
   currentComment.querySelector('.social__picture').alt = comment.name;
   currentComment.querySelector('.social__text').textContent = comment.message;
-
   return(currentComment);
-
 };
 
 const renderComments = (comments) => {
@@ -67,6 +66,7 @@ const renderBigPicture = (data) =>{
   bigPictureDescription.textContent = data.description;
   bigPictureCommentsCount.textContent = data.comments.length;
 };
+
 const closeBigPicture = () => {
   bigPictureForm.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -89,6 +89,7 @@ const displayImageAndComments = (data) => {
 const showBigPicture = (picture) => {
   bigPictureForm.classList.remove('hidden');
   body.classList.add('modal-open');
+
 
   currentComments = picture.comments.slice();
   visiableCommentsCount = COMMENTS_STEP;
