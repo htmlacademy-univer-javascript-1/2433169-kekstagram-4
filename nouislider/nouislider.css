@@ -124,7 +124,8 @@
  /* Styling;
    * Giving the connect element a border radius causes issues with using transform: scale
    */
- .noUi-target {
+ .noUi-target{
+   height: 20px;
    background: #FAFAFA;
    border-radius: 4px;
    border: 1px solid #D3D3D3;

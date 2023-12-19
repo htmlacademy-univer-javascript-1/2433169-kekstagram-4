@@ -1,11 +1,11 @@
 import './data.js';
-import {PHOTOS_COUNT, addmainObject } from './data.js';
-import {createPictures} from './photoModule.js';
-import { initPictures } from './big-picture.js';
+import {PHOTOS_COUNT, createImage } from './data.js';
+import {createPictures} from './pictures.js';
+import './big-picture.js';
+import {initForm} from './form.js';
+import './hashtag-pristine.js';
 
-createPictures(Array.from( {length: PHOTOS_COUNT}, addmainObject));
-const pictures = Array.from( {length: PHOTOS_COUNT}, addmainObject);
+const pictures = Array.from( {length: PHOTOS_COUNT}, createImage);
 
 createPictures(pictures);
-
-initPictures(pictures);
+initForm();
