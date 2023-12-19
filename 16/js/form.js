@@ -1,6 +1,8 @@
 import { isEscKey } from './utils.js';
+
 import {pristine} from './hashtag-pristine.js';
 import {initRadios, resetFilters } from './effects.js';
+
 
 const body = document.querySelector('body');
 const formUpload = document.querySelector('.img-upload__form');
@@ -60,6 +62,7 @@ const initButtons = () => {
   plusButton.addEventListener('click', onPlusButtonClick);
 };
 
+
 const closeForm =  () => {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -73,6 +76,7 @@ const closeForm =  () => {
   imagePreview.style.transform = 'scale(100%)';
 
   resetFilters();
+
 };
 
 function onCloseFormClick (evt) {
@@ -101,7 +105,6 @@ const changeImages = () => {
   });
 };
 
-
 function onFileUploadChange () {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
@@ -111,6 +114,5 @@ function onFileUploadChange () {
   initButtons();
   initRadios();
 }
-
 
 export {initForm};
