@@ -102,6 +102,7 @@ const changeImages = () => {
   });
 };
 
+
 function onFileUploadChange () {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
