@@ -1,24 +1,24 @@
-const getRandomInteger = (a,b) => {
-  const upper = Math.floor(Math.max(a,b));
-  const lower = Math.ceil(Math.min(a,b));
+const getRandomInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(a, b));
+  const upper = Math.floor(Math.max(a, b));
   const result = Math.random() * (upper - lower + 1) + lower;
 
   return Math.floor(result);
 };
 
-const createRandomIdFromRangeGenerator = (min, max) => {
-  const formerValues = [];
+const createRandomIdFromRangeGenerator =  (min, max) => {
+  const previousValues = [];
 
   return function () {
-    let actualValue = getRandomInteger(min, max);
+    let currentValue = getRandomInteger(min, max);
 
-    while (formerValues.includes(actualValue)) {
-      actualValue = getRandomInteger(min, max);
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
     }
 
-    formerValues.push(actualValue);
+    previousValues.push(currentValue);
 
-    return actualValue;
+    return currentValue;
   };
 };
 
