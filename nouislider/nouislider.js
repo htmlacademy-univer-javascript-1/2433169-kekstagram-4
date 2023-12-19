@@ -78,6 +78,7 @@
   // Limits a value to 0 - 100
   function limit(a) {
       return Math.max(Math.min(a, 100), 0);
+
   }
   // Wraps a variable as an array, if it isn't one yet.
   // Note that an input array is returned by reference!
@@ -130,6 +131,7 @@
           x: x,
           y: y,
       };
+
   }
   // we provide a function to compute constants instead
   // of accessing window.* as soon as the module needs it
@@ -154,6 +156,7 @@
                   move: "mousemove touchmove",
                   end: "mouseup touchend",
               };
+
   }
   // https://github.com/WICG/EventListenerOptions/blob/gh-pages/explainer.md
   // Issue #785
@@ -175,6 +178,7 @@
   }
   function getSupportsTouchActionNone() {
       return window.CSS && CSS.supports && CSS.supports("touch-action", "none");
+
   }
   //endregion
   //region Range Calculation
@@ -246,6 +250,7 @@
           return value;
       }
       return xPct[j - 1] + closest(value - xPct[j - 1], xSteps[j - 1]);
+
   }
   //endregion
   //region Spectrum
@@ -462,6 +467,7 @@
           this.xHighestCompleteStep[i] = step;
       };
       return Spectrum;
+
   }());
   //endregion
   //region Options
