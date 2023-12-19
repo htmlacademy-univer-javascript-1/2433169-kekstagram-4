@@ -16,7 +16,7 @@ const inputHashtag = document.querySelector('.text__hashtags');
 
 let errorMessage = '';
 
-const error =  () => errorMessage;
+const error = () => errorMessage;
 
 const hashtagHandler = (value) =>{
   errorMessage = '';
@@ -67,12 +67,12 @@ const hashtagHandler = (value) =>{
   });
 };
 
-const onHashtagInput = (item) =>{
-  if(item.validate){
-    submitBtn.disabled = true;
+const onHashtagInput = () =>{
+  if(pristine.validate()){
+    submitBtn.disabled = false;
   }
   else{
-    submitBtn.disabled = false;
+    submitBtn.disabled = true;
   }
 };
 
@@ -82,7 +82,6 @@ pristine.addValidator(inputHashtag, hashtagHandler, error, 2, false);
 inputHashtag.addEventListener('input', onHashtagInput);
 formUpload.addEventListener('submit', (evt) => {
   evt.preventDefault();
-  onHashtagInput(evt);
   pristine.validate();
 });
 
