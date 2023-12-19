@@ -66,7 +66,6 @@ const closeForm =  () => {
 
   closeButton.removeEventListener('click', onCloseFormClick);
   document.removeEventListener('keydown', onCloseFormEscDown);
-
   formUpload.reset();
   pristine.reset();
 
@@ -112,5 +111,6 @@ function onFileUploadChange () {
   initButtons();
   initRadios();
 }
+
 
 export {initForm};
