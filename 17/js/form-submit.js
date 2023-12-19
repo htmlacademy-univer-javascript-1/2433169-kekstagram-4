@@ -1,7 +1,6 @@
 import {closeForm} from './form.js';
 import { isEscKey } from './utils.js';
 const body = document.body;
-
 const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
 
