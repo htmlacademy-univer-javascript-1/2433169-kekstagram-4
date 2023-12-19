@@ -38,3 +38,4 @@ const createPictures = (pictures) => {
 };
 
 export {createPictures, removePictures};
+~

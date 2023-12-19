@@ -1,4 +1,4 @@
-import { debounce, shuffle } from './utils.js';
+import {debounce, shuffle} from './utils.js';
 import {pictures} from './main.js';
 import {createPictures, removePictures} from './pictures.js';
 
@@ -7,7 +7,7 @@ const RANDOM_PICTURES_MAX = 10;
 const filtersForm = document.querySelector('.img-filters__form');
 let activeButton = document.querySelector('.img-filters__button--active');
 
-const filters = {
+const Filters = {
   'filter-default': () => pictures.slice(),
   'filter-random': () => shuffle(pictures.slice()).slice(0, RANDOM_PICTURES_MAX),
   'filter-discussed': () => pictures.slice().sort((first, second) => second.comments.length - first.comments.length ),
@@ -15,7 +15,7 @@ const filters = {
 
 const applyFilters = (id) =>{
   removePictures();
-  createPictures(filters[id]());
+  createPictures(Filters[id]());
 };
 
 
