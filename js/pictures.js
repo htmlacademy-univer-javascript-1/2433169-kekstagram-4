@@ -1,9 +1,15 @@
 import {showBigPicture} from './big-picture.js';
 
+const pictureContainer = document.querySelector('.pictures');
 const pictureFragments = document.createDocumentFragment();
 const picturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('a');
+
+
+const removePictures = () => {
+  document.querySelectorAll('.picture').forEach((photo) => photo.remove());
+};
 
 const createPicture = (picture) => {
   const currentPicture = picturesTemplate.cloneNode(true);
@@ -24,8 +30,6 @@ const createPicture = (picture) => {
 };
 
 const createPictures = (pictures) => {
-
-  const pictureContainer = document.querySelector('.pictures');
   pictures.forEach((picture) => {
     createPicture(picture);
   });
@@ -33,4 +37,4 @@ const createPictures = (pictures) => {
   pictureContainer.append(pictureFragments);
 };
 
-export {createPictures};
+export {createPictures, removePictures};

@@ -26,4 +26,15 @@ const isEscKey = (evt) => evt.key === 'Escape';
 
 const createImageUrl = (id, derictory, format) => derictory + id + format;
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl, isEscKey};
+function debounce (callback, timeoutDelay = 500) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+
+
+export {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl, isEscKey, debounce, shuffle};
