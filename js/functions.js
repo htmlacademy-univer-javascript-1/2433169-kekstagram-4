@@ -6,10 +6,10 @@ const getMinutes = (time) =>{
 
 const IsMeetUpEnable = (startTime, endTime, startMeet, meetLength) => {
   const meetStartMinutes = getMinutes(startMeet);
-  const startMinutes = getMinutes(startTime);
-  const endMinutes = getMinutes(endTime);
+  const minutesStart = getMinutes(startTime);
+  const minutesEnd = getMinutes(endTime);
 
-  return meetStartMinutes + meetLength <= endMinutes && meetStartMinutes >= startMinutes && (endMinutes - startMinutes) >= meetLength;
+  return meetStartMinutes + meetLength <= minutesEnd && meetStartMinutes >= minutesStart && (minutesEnd - minutesStart) >= meetLength;
 
 };
 

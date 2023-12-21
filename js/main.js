@@ -1,5 +1,5 @@
 import { createPictures } from './pictures.js';
-import './big-picture.js';
+import './bigPicture.js';
 import './hashtag-pristine.js';
 import { openForm } from './form.js';
 import { loadData } from './api.js';

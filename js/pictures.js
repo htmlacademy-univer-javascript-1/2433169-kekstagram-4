@@ -1,8 +1,8 @@
-import {showBigPicture} from './big-picture.js';
+import {showBigPicture} from './bigPicture.js';
 
-const pictureContainer = document.querySelector('.pictures');
-const pictureFragments = document.createDocumentFragment();
-const picturesTemplate = document.querySelector('#picture')
+const containerPicture = document.querySelector('.pictures');
+const fragmentsPicture = document.createDocumentFragment();
+const templatePictures = document.querySelector('#picture')
   .content
   .querySelector('a');
 
@@ -12,7 +12,7 @@ const removePictures = () => {
 };
 
 const createPicture = (picture) => {
-  const currentPicture = picturesTemplate.cloneNode(true);
+  const currentPicture = templatePictures.cloneNode(true);
 
   currentPicture.querySelector('img').src = picture.url;
   currentPicture.querySelector('img').alt = picture.description;
@@ -20,13 +20,13 @@ const createPicture = (picture) => {
   currentPicture.querySelector('.picture__likes').textContent = picture.likes;
 
 
-  const onPictureClick = (evt) => {
-    evt.preventDefault();
+  const onPictureClick = (event) => {
+    event.preventDefault();
     showBigPicture(picture);
   };
   currentPicture.dataset.id = picture.id;
   currentPicture.addEventListener('click', onPictureClick);
-  pictureFragments.append(currentPicture);
+  fragmentsPicture.append(currentPicture);
 };
 
 const createPictures = (pictures) => {
@@ -34,7 +34,7 @@ const createPictures = (pictures) => {
     createPicture(picture);
   });
 
-  pictureContainer.append(pictureFragments);
+  containerPicture.append(fragmentsPicture);
 };
 
 export {createPictures, removePictures};

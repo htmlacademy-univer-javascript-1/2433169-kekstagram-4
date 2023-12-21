@@ -1,5 +1,7 @@
 import {isEscKey} from './utils.js';
 
+const COMMENTS_STEP =  5;
+
 const commentTemplate = document.querySelector('#comments').content.querySelector('li');
 
 const body = document.body;
@@ -10,12 +12,10 @@ const bigPictureLikes = bigPictureForm.querySelector('.big-picture__social .like
 const bigPictureDescription = bigPictureForm.querySelector('.big-picture__social .social__caption');
 const bigPictureCommentsCount = bigPictureForm.querySelector('.social__comment-count');
 
-
 const socials = document.querySelector('.social__comments');
 
 const closeButton = document.querySelector('#picture-cancel');
 
-const COMMENTS_STEP =  5;
 const loader = document.querySelector('.comments-loader');
 let currentComments = [];
 let visiableCommentsCount;
