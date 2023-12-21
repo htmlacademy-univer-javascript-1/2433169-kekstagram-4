@@ -7,30 +7,30 @@ const getRandomInteger = (a, b) => {
 };
 
 const createRandomIdFromRangeGenerator =  (min, max) => {
-  const previousValues = [];
+  const valuesLast = [];
 
   return function () {
-    let currentValue = getRandomInteger(min, max);
+    let valueActual = getRandomInteger(min, max);
 
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
+    while (valuesLast.includes(valueActual)) {
+      valueActual = getRandomInteger(min, max);
     }
 
-    previousValues.push(currentValue);
+    valuesLast.push(valueActual);
 
-    return currentValue;
+    return valueActual;
   };
 };
 
-const isEscKey = (evt) => evt.key === 'Escape';
+const isEscKey = (event) => event.key === 'Escape';
 
 const createImageUrl = (id, derictory, format) => derictory + id + format;
 
 function debounce (callback, timeoutDelay = 500) {
-  let timeoutId;
+  let idTimeout;
   return (...rest) => {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    clearTimeout(idTimeout);
+    idTimeout = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
 }
 

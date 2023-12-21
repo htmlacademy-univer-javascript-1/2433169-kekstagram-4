@@ -4,22 +4,22 @@ import {initRadios, resetFilters } from './effects.js';
 import { uploadData } from './api.js';
 import { onSuccess, onFail } from './form-submit.js';
 
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
+const TYPE_FILE = ['gif', 'jpg', 'jpeg', 'png'];
 
 const body = document.querySelector('body');
-const formUpload = document.querySelector('.img-upload__form');
+const uploadForm = document.querySelector('.img-upload__form');
 const uploadOverlay = document.querySelector('.img-upload__overlay');
 
 const closeButton = document.querySelector('#upload-cancel');
 
-const fileUpload = document.querySelector('#upload-file');
-const imagePreview = document.querySelector('.img-upload__preview img');
+const uploadFile = document.querySelector('#upload-file');
+const previewImg = document.querySelector('.img-upload__preview img');
 const effects = document.querySelectorAll('.effects__preview');
 const mainPicture = document.querySelector('.img-upload__preview img');
 
-const plusButton = document.querySelector('.scale__control--bigger');
-const minusButton = document.querySelector('.scale__control--smaller');
-const scaleControl = document.querySelector('.scale__control--value');
+const buttonPlus = document.querySelector('.scale__control--bigger');
+const buttonMinus = document.querySelector('.scale__control--smaller');
+const controlScale = document.querySelector('.scale__control--value');
 
 
 const Zoom = {
@@ -40,14 +40,14 @@ const openForm = () => {
   closeButton.addEventListener('click', onCloseFormClick);
   document.addEventListener('keydown', onCloseFormEscDown);
 
-  fileUpload.addEventListener('change', onFileUploadChange);
-  scaleControl.value = '100%';
+  uploadFile.addEventListener('change', onFileUploadChange);
+  controlScale.value = '100%';
 
-  formUpload.addEventListener('submit', onFormUploadSubmit);
+  uploadForm.addEventListener('submit', onFormUploadSubmit);
 };
 
 const changeZoom = (factor = 1) => {
-  let size = parseInt(scaleControl.value, 10) + (Zoom.STEP * factor);
+  let size = parseInt(controlScale.value, 10) + (Zoom.STEP * factor);
   if(size < Zoom.MIN){
     size = Zoom.MIN;
     return;
@@ -57,8 +57,8 @@ const changeZoom = (factor = 1) => {
     return;
   }
 
-  scaleControl.value = `${size}%`;
-  imagePreview.style.transform = `scale(${size / 100})`;
+  controlScale.value = `${size}%`;
+  previewImg.style.transform = `scale(${size / 100})`;
 };
 
 const onMinusButtonClick = () => {
@@ -70,17 +70,17 @@ const onPlusButtonClick = () => {
 };
 
 const initButtons = () => {
-  minusButton.addEventListener('click', onMinusButtonClick);
-  plusButton.addEventListener('click', onPlusButtonClick);
+  buttonMinus.addEventListener('click', onMinusButtonClick);
+  buttonPlus.addEventListener('click', onPlusButtonClick);
 };
 
 const removeEvents = () => {
   closeButton.removeEventListener('click', onCloseFormClick);
   document.removeEventListener('keydown', onCloseFormEscDown);
-  formUpload.removeEventListener('submit', onFormUploadSubmit);
+  uploadForm.removeEventListener('submit', onFormUploadSubmit);
 
-  minusButton.removeEventListener('click', onMinusButtonClick);
-  plusButton.removeEventListener('click', onPlusButtonClick);
+  buttonMinus.removeEventListener('click', onMinusButtonClick);
+  buttonPlus.removeEventListener('click', onPlusButtonClick);
 
 };
 const closeForm =  () => {
@@ -89,37 +89,37 @@ const closeForm =  () => {
 
   removeEvents();
 
-  formUpload.reset();
+  uploadForm.reset();
   pristine.reset();
 
-  scaleControl.value = '100%';
-  imagePreview.style.transform = 'scale(100%)';
+  controlScale.value = '100%';
+  previewImg.style.transform = 'scale(100%)';
 
   resetFilters();
 };
 
-function onCloseFormClick (evt) {
-  evt.preventDefault();
+function onCloseFormClick (event) {
+  event.preventDefault();
   closeForm();
 }
 
-function onCloseFormEscDown (evt) {
+function onCloseFormEscDown (event) {
 
-  if(isEscKey(evt) &&
-  !evt.target.classList.contains('text__hashtags') &&
-  !evt.target.classList.contains('text__description') &&
+  if(isEscKey(event) &&
+  !event.target.classList.contains('text__hashtags') &&
+  !event.target.classList.contains('text__description') &&
   !body.querySelector('.error'))
   {
-    evt.preventDefault();
+    event.preventDefault();
     closeForm();
   }
 }
 
 const changeImages = () => {
-  const file = fileUpload.files[0];
-  const fileName = file.name.toLowerCase();
+  const file = uploadFile.files[0];
+  const nameFile = file.name.toLowerCase();
 
-  if(FILE_TYPES.some((it) => fileName.endsWith(it))){
+  if(TYPE_FILE.some((it) => nameFile.endsWith(it))){
     mainPicture.src = URL.createObjectURL(file);
 
     effects.forEach((effect) => {

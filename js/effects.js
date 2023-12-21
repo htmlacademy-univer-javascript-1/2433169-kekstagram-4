@@ -1,4 +1,4 @@
-const DEFAULT_EFFECT_LEVEL = 100;
+const EFFECT_LEVEL_DEFAULT = 100;
 
 const Slider = {
   MIN: 10,
@@ -6,15 +6,15 @@ const Slider = {
   STEP: 10,
 };
 
-const sliderElement = document.querySelector('.effect-level__slider');
-const sliderUpload = document.querySelector('.img-upload__effect-level');
+const elementSlider = document.querySelector('.effect-level__slider');
+const uploadSlider = document.querySelector('.img-upload__effect-level');
 const currentSlider = document.querySelector('.effect-level__value');
-const filterRadios = document.querySelectorAll('.effects__item');
+const radiosFilter = document.querySelectorAll('.effects__item');
 const picture = document.querySelector('.img-upload__preview img');
 
-let currentRadio = document.querySelector('.effects__radio').value;
+let radioActual = document.querySelector('.effects__radio').value;
 
-currentSlider.value = DEFAULT_EFFECT_LEVEL;
+currentSlider.value = EFFECT_LEVEL_DEFAULT;
 
 const Effects = {
   none: 0,
@@ -46,10 +46,10 @@ const Effects = {
 };
 
 const sliderConnector = () => {
-  if (currentRadio !== 'none') {
-    const effect = Effects[currentRadio];
-    picture.style.filter = `${effect.filter}(${sliderElement.noUiSlider.get()}${effect.measurementUnit})`;
-    currentSlider.value = `${parseFloat(sliderElement.noUiSlider.get())}${effect.measurementUnit}`;
+  if (radioActual !== 'none') {
+    const effect = Effects[radioActual];
+    picture.style.filter = `${effect.filter}(${elementSlider.noUiSlider.get()}${effect.measurementUnit})`;
+    currentSlider.value = `${parseFloat(elementSlider.noUiSlider.get())}${effect.measurementUnit}`;
   } else {
     picture.style.filter = '';
   }
@@ -59,7 +59,7 @@ const sliderConnector = () => {
 const changeSlider = (newEffect) => {
   const effect = Effects[newEffect];
   if(effect !== 0){
-    sliderElement.noUiSlider.updateOptions({
+    elementSlider.noUiSlider.updateOptions({
       range: {
         min: effect.range.min,
         max: effect.range.max,
@@ -67,11 +67,11 @@ const changeSlider = (newEffect) => {
       start: effect.range.max,
       step: effect.step
     });
-    sliderUpload.classList.remove('visually-hidden');
+    uploadSlider.classList.remove('visually-hidden');
     sliderConnector();
   }
   else{
-    sliderUpload.classList.add('visually-hidden');
+    uploadSlider.classList.add('visually-hidden');
     picture.style.filter = '';
   }
 };
@@ -80,30 +80,30 @@ const onNoUiSliderChange = () => {
   sliderConnector();
 };
 
-const onRadioChange = (evt) =>{
-  currentRadio = evt.currentTarget.querySelector('.effects__radio').value;
-  changeSlider(currentRadio);
+const onRadioChange = (event) =>{
+  radioActual = event.currentTarget.querySelector('.effects__radio').value;
+  changeSlider(radioActual);
 };
 
 const resetFilters = () =>{
-  filterRadios.forEach((filter) => {
+  radiosFilter.forEach((filter) => {
     filter.removeEventListener('change', onRadioChange);
   });
 
   picture.style.filter = 'none';
-  sliderElement.noUiSlider.off('change', onNoUiSliderChange);
+  elementSlider.noUiSlider.off('change', onNoUiSliderChange);
 };
 
 const initRadios = () =>{
-  sliderElement.noUiSlider.on('change', onNoUiSliderChange);
-  sliderUpload.classList.add('visually-hidden');
-  filterRadios.forEach((filter) => {
+  elementSlider.noUiSlider.on('change', onNoUiSliderChange);
+  uploadSlider.classList.add('visually-hidden');
+  radiosFilter.forEach((filter) => {
     filter.addEventListener('change', onRadioChange);
   });
   picture.style.filter = 'none';
 };
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(elementSlider, {
   range: {
     min: Slider.MIN,
     max: Slider.MAX
