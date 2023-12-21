@@ -2,22 +2,22 @@ import {closeForm} from './form.js';
 import { isEscKey } from './utils.js';
 
 const body = document.body;
-const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
+const successCompletionTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
 
-const onBodyClick = (evt) => {
-  const clickElem = evt.target;
+const onBodyClick = (event) => {
+  const clickElement = event.target;
 
-  if(clickElem.classList.contains('success__inner') || clickElem.classList.contains('error__inner')){
+  if(clickElement.classList.contains('success__inner') || clickElement.classList.contains('error__inner')){
     return;
   }
   closeMessage();
 };
 
 
-const onBodyKeyDown = (evt) => {
-  evt.preventDefault();
-  if(isEscKey(evt)){
+const onBodyKeyDown = (event) => {
+  event.preventDefault();
+  if(isEscKey(event)){
     closeMessage();
   }
 };
@@ -42,7 +42,7 @@ const showMessage = (messageTemplate) => {
 
 const onSuccess = () => {
   closeForm();
-  showMessage(successMessageTemplate);
+  showMessage(successCompletionTemplate);
 };
 
 const onFail = () => {

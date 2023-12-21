@@ -1,11 +1,11 @@
 const MAX_SYMBOLS = 20;
 const MAX_HASHTAGS = 5;
 
-const formUpload = document.querySelector('.img-upload__form');
-const submitBtn = document.querySelector('#upload-submit');
-const textDescriptionInput = document.querySelector('.text__description');
+const uploadForm = document.querySelector('.img-upload__form');
+const buttonSubmit = document.querySelector('#upload-submit');
+const inputTextDescription = document.querySelector('.text__description');
 
-const pristine = new Pristine(formUpload, {
+const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
   errorTextTag: 'p',
@@ -70,10 +70,10 @@ const hashtagHandler = (value) =>{
 
 const validateInput = () =>{
   if(pristine.validate()){
-    submitBtn.disabled = false;
+    buttonSubmit.disabled = false;
   }
   else{
-    submitBtn.disabled = true;
+    buttonSubmit.disabled = true;
   }
 };
 
@@ -83,14 +83,14 @@ pristine.addValidator(inputHashtag, hashtagHandler, error, 2, false);
 const validateDescription = (value) => value.length <= 140;
 
 pristine.addValidator(
-  textDescriptionInput,
+  inputTextDescription,
   validateDescription,
   'Не более 140 символов'
 );
 
 inputHashtag.addEventListener('input', validateInput);
-textDescriptionInput.addEventListener('input', validateInput);
-formUpload.addEventListener('submit', (evt) => {
+inputTextDescription.addEventListener('input', validateInput);
+uploadForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
   pristine.validate();
 });
