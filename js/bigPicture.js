@@ -6,7 +6,6 @@ const commentTemplate = document.querySelector('#comments').content.querySelecto
 
 const body = document.body;
 
-
 const bigPictureForm = document.querySelector('.big-picture');
 const bigPictureImage = bigPictureForm.querySelector('.big-picture__img img');
 const bigPictureLikes = bigPictureForm.querySelector('.big-picture__social .likes-count');
