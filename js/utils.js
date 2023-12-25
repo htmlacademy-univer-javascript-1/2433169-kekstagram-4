@@ -1,40 +1,40 @@
-const getRandomInteger = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
-  const result = Math.random() * (upper - lower + 1) + lower;
+const DEBOUNCE_DELAY = 500;
+const MIN_PLURAL_DIGIT = 5;
+const MIN_DECIMAL_NUMBER = 10;
+const MAX_DECIMAL_NUMBER = 19;
+const MIN_HUNDREDTH_NUMBER = 100;
 
-  return Math.floor(result);
-};
+const isEscape = (evt) => evt.key === 'Escape';
 
-const createRandomIdFromRangeGenerator =  (min, max) => {
-  const valuesLast = [];
+const debounce = (callback) => {
+  let timeoutId;
 
-  return function () {
-    let valueActual = getRandomInteger(min, max);
-
-    while (valuesLast.includes(valueActual)) {
-      valueActual = getRandomInteger(min, max);
-    }
-
-    valuesLast.push(valueActual);
-
-    return valueActual;
-  };
-};
-
-const isEscKey = (event) => event.key === 'Escape';
-
-const createImageUrl = (id, derictory, format) => derictory + id + format;
-
-function debounce (callback, timeoutDelay = 500) {
-  let idTimeout;
   return (...rest) => {
-    clearTimeout(idTimeout);
-    idTimeout = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+    clearTimeout(timeoutId);
+
+    timeoutId = setTimeout(() => callback.apply(this, rest), DEBOUNCE_DELAY);
   };
-}
+};
 
-const shuffle = (array) => array.sort(() => Math.random() - 0.5);
+const shuffle = (array) => {
+  for(let firstIndex = array.length - 1; firstIndex > 0; firstIndex--) {
+    const randomIndex = Math.floor(Math.random() * (firstIndex + 1));
+    [array[firstIndex], array[randomIndex]] = [array[randomIndex], array[firstIndex]];
+  }
 
+  return array;
+};
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl, isEscKey, debounce, shuffle};
+const reductionNumber = (number, nominative, genitiveSingular, genitivePlural) => {
+  const lastDigit = number % MIN_DECIMAL_NUMBER;
+  if (lastDigit === 0 || lastDigit >= MIN_PLURAL_DIGIT && lastDigit < MIN_DECIMAL_NUMBER
+      || number % MIN_HUNDREDTH_NUMBER > MIN_DECIMAL_NUMBER && number % MIN_HUNDREDTH_NUMBER <= MAX_DECIMAL_NUMBER) {
+    return genitivePlural;
+  }
+  else if (lastDigit > 1 && lastDigit < MIN_PLURAL_DIGIT) {
+    return genitiveSingular;
+  }
+  return nominative;
+};
+
+export {isEscape, debounce, shuffle, reductionNumber};

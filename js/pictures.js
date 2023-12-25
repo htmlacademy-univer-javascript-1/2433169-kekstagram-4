@@ -1,40 +1,39 @@
-import {showBigPicture} from './bigPicture.js';
+import { showBigPictures } from './showBigPictures.js';
 
-const containerPicture = document.querySelector('.pictures');
-const fragmentsPicture = document.createDocumentFragment();
-const templatePictures = document.querySelector('#picture')
-  .content
-  .querySelector('a');
+const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
+const pictures = document.querySelector('.pictures');
+const picturesFragment = document.createDocumentFragment();
 
+const renderPicture = (picture) => {
+  const newElement = pictureTemplate.cloneNode(true);
 
-const removePictures = () => {
-  document.querySelectorAll('.picture').forEach((photo) => photo.remove());
-};
+  newElement.querySelector('.picture__img').src = picture.url;
+  newElement.querySelector('.picture__comments').textContent = picture.comments.length;
+  newElement.querySelector('.picture__likes').textContent = picture.likes;
 
-const createPicture = (picture) => {
-  const currentPicture = templatePictures.cloneNode(true);
+  newElement.addEventListener('click', (evt) => {
+    evt.preventDefault();
 
-  currentPicture.querySelector('img').src = picture.url;
-  currentPicture.querySelector('img').alt = picture.description;
-  currentPicture.querySelector('.picture__comments').textContent = picture.comments.length;
-  currentPicture.querySelector('.picture__likes').textContent = picture.likes;
-
-
-  const onPictureClick = (event) => {
-    event.preventDefault();
-    showBigPicture(picture);
-  };
-  currentPicture.dataset.id = picture.id;
-  currentPicture.addEventListener('click', onPictureClick);
-  fragmentsPicture.append(currentPicture);
-};
-
-const createPictures = (pictures) => {
-  pictures.forEach((picture) => {
-    createPicture(picture);
+    showBigPictures(picture);
   });
 
-  containerPicture.append(fragmentsPicture);
+  return newElement;
 };
 
-export {createPictures, removePictures};
+const renderPhotos = (images) => {
+  images.forEach((picture) => {
+    picturesFragment.appendChild(renderPicture(picture));
+  });
+
+  pictures.appendChild(picturesFragment);
+};
+
+const removePhotos = () => {
+  const oldPictures = pictures.querySelectorAll('.picture');
+  oldPictures.forEach((picture) => {
+    picture.remove();
+  });
+};
+
+export {renderPhotos, removePhotos};
+
