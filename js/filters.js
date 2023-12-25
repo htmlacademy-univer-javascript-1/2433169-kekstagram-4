@@ -1,40 +1,37 @@
-import {debounce, shuffle} from './utils.js';
-import {pictures} from './main.js';
-import {createPictures, removePictures} from './pictures.js';
+import { debounce, shuffle } from './utils.js';
+import { renderPhotos, removePhotos } from './pictures.js';
+import { pictures } from './uploadData.js';
 
-const PICTURES_MAX_RANDOM = 10;
+const MAX_RANDOM_FILTER_LENGTH = 10;
 
-const filtersForm = document.querySelector('.img-filters__form');
-let buttonActive = document.querySelector('.img-filters__button--active');
+const filterForm = document.querySelector('.img-filters__form');
 
-const Filters = {
+const showFilters = () => {
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+};
+
+const sortByCommentsCount = (firstItem, secondItem) => secondItem.comments.length - firstItem.comments.length;
+
+const filters = {
   'filter-default': () => pictures.slice(),
-  'filter-random': () => shuffle(pictures.slice()).slice(0, PICTURES_MAX_RANDOM),
-  'filter-discussed': () => pictures.slice().sort((first, second) => second.comments.length - first.comments.length ),
+  'filter-random': () => shuffle(pictures.slice()).slice(0, MAX_RANDOM_FILTER_LENGTH),
+  'filter-discussed': () => pictures.slice().sort(sortByCommentsCount),
 };
 
-const applyFilters = (id) =>{
-  removePictures();
-  createPictures(Filters[id]());
-};
+const onFilterClick = debounce((evt) => {
+  if(evt.target.tagName === 'BUTTON') {
+    const clickedButton = filterForm.querySelector('.img-filters__button--active');
 
+    if(clickedButton) {
+      clickedButton.classList.remove('img-filters__button--active');
+    }
+    evt.target.classList.add('img-filters__button--active');
 
-const toogleButtons = (event) => {
-  buttonActive.classList.remove('img-filters__button--active');
-  buttonActive = event.target;
-  buttonActive.classList.add('img-filters__button--active');
-};
-
-const onFilterFormClick = debounce((event) => {
-  event.preventDefault();
-  if(event.target.type === 'button'){
-    applyFilters(event.target.id);
-    toogleButtons(event);
+    removePhotos();
+    renderPhotos(filters[evt.target.id]());
   }
 });
 
-const initFilters = () => {
-  filtersForm.addEventListener('click', onFilterFormClick);
-};
+filterForm.addEventListener('click', onFilterClick);
 
-export{initFilters};
+export{showFilters};
